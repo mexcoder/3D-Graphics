@@ -1,7 +1,6 @@
 package Mexcoder.Graphics.Graphics3D;
 
 import Mexcoder.Graphics.BrensenhamLine;
-import Mexcoder.Graphics.Graphics3D.Pixel;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
@@ -42,45 +41,18 @@ public class IsometricLine extends BrensenhamLine {
 
     }
 
-    protected void draw(double x0, double y0, double z0, double x1, double y1, double z1) {
+    protected void draw(Point3D start, Point3D end) {
 
-        _draw(new Point3D(x0, y0, z0), new Point3D(x1, y1, z1));
+        double x0, y0,x1,y1;
+        x1 = end.x * cos30 - end.y * sin30;
+        y1 = end.x * sin30 + end.y * cos30;
 
-    }
-
-    protected void _draw(Point3D start, Point3D end) {
-
-        double x, y;
-        x = end.x * cos30 - end.y * sin30;
-        y = end.x * sin30 + end.y * cos30;
-
-        end.x = x;
-        end.y = y;
-
-        x = start.x * cos30 - start.y * sin30;
-        y = start.x * sin30 + start.y * cos30;
+        x0 = start.x * cos30 - start.y * sin30;
+        y0 = start.x * sin30 + start.y * cos30;
 
         // z translates directly to y
-        super.draw(offset.x + (int) x, (int) (offset.y + y - start.z),
-                offset.x + (int) end.x, (int) (offset.y + end.y - end.z));
-
-    }
-
-    public void draw(Point3D start, Point3D end) {
-
-        double x, y;
-        x = end.x * cos30 - end.y * sin30;
-        y = end.x * sin30 + end.y * cos30;
-
-        end.x = x;
-        end.y = y;
-
-        x = start.x * cos30 - start.y * sin30;
-        y = start.x * sin30 + start.y * cos30;
-
-        // z translates directly to y
-        super.draw(offset.x + (int) x, (int) (offset.y + y - start.z),
-                offset.x + (int) end.x, (int) (offset.y + end.y - end.z));
+        super.draw(offset.x + (int) x0, (int) (offset.y + y0 - start.z),
+                   offset.x + (int) x1, (int) (offset.y + y1 - end.z));
 
     }
 

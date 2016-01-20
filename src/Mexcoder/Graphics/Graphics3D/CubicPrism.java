@@ -11,83 +11,69 @@ import java.awt.image.BufferedImage;
  *
  * @author JuanAntonio
  */
-public class CubicPrism extends IsometricLine {
+public class CubicPrism extends Entity3D {
 
-    public CubicPrism(BufferedImage c) {
-        super(c);
+    public CubicPrism(Point3D o, Point3D e, BufferedImage c) {
+        super(o, e, c);
+    }
+
+    protected Entity3D calculatePoints() {
+
+        if (this.points.isEmpty()) {
+            for (int i = 0; i < 8; i++) {
+                this.points.add(new Point3D(Point3D.zero));
+            }
+
+        }
+        Point3D s = this.origin;
+        Point3D e = this.end;
+
+        this.points.get(0).fromPoint(s);
+        this.points.get(1).setValues(s.x, e.y, s.z);
+        this.points.get(2).setValues(e.x, s.y, s.z);
+        this.points.get(3).setValues(e.x, e.y, s.z);
+        this.points.get(4).setValues(s.x, s.y, e.z);
+        //simetry point
+        this.points.get(5).setValues(s.x, e.y, e.z);
+        this.points.get(6).setValues(e.x, s.y, e.z);
+        this.points.get(7).fromPoint(e);
+
+        return this;
+
     }
 
     @Override
-    public void draw(Point3D start, Point3D end) {
+    public Entity3D drawAt(Point3D p) {
+        
+        for (Point3D point : points) {
+            System.out.println(point.x+","+point.y+","+point.z);
+            
+        }
 
-        Point3D _start, _end;
-        double x0 = start.x;
-        double y0 = start.y;
-        double z0 = start.z;
-        double x1 = end.x;
-        double y1 = end.y;
-        double z1 = end.y;
+        super.draw(points.get(7), points.get(3));
+        super.draw(points.get(7), points.get(5));
+        super.draw(points.get(7), points.get(6));
+        
+        super.draw(points.get(3), points.get(1));
+        super.draw(points.get(3), points.get(2));
+        
+        super.draw(points.get(4), points.get(5));
+        super.draw(points.get(4), points.get(6));
+        
+        super.draw(points.get(1), points.get(5));
+        
+        super.draw(points.get(2), points.get(6));
 
-        super.draw(x0, y0, z0, x0, y1, z0);
-        super.draw(x0, y0, z0, x1, y0, z0);
-        super.draw(x0, y1, z0, x1, y1, z0);
-        super.draw(x1, y0, z0, x1, y1, z0);
-        super.draw(x0, y0, z1, x0, y1, z1);
-        super.draw(x0, y0, z1, x1, y0, z1);
-        super.draw(x0, y1, z1, x1, y1, z1);
-        super.draw(x1, y0, z1, x1, y1, z1);
+        //hidden lines:
+        if (this.drawHidden) {
+            l.setMask((byte) 0b00011100);
+            super.draw(points.get(0), points.get(1));
+            super.draw(points.get(0), points.get(2));
+            super.draw(points.get(0), points.get(4));
+            l.setMask((byte) 0xff);
+        }
 
-        super.draw(x0, y0, z0, x0, y0, z1);
-        super.draw(x1, y0, z0, x1, y0, z1);
-        super.draw(x0, y1, z0, x0, y1, z1);
-        super.draw(x1, y1, z0, x1, y1, z1);
-
-        /*_start = new Point3D(start);
-        _end = new Point3D(end.x, start.y, start.z);
-        
-        // x0,y0,z0 -> x1,y0,z0
-        super.draw(_start, _end);
-        
-        _end.y = end.y;
-        _end.x = start.x;
-        
-        //x0,y0,z0 -> x0,y1,z0
-        super.draw(_start, _end);
-        
-        _end.x = end.x;
-        _start.y = end.y;
-        
-        //x0,y1,z0 -> x1,y1,z0
-        super.draw(_start, _end);
-        
-        _start.x = end.x;
-        _start.y = start.y;
-        
-        //x1,y0,z0 -> x1,y1,z0
-        //super.draw(_start, _end);
-        
-        _start.z  = end.z;
-        _end.z = end.z;
-        // x0,y0,z0 -> x1,y0,z0
-        super.draw(_start, _end);
-        
-        _end.y = end.y;
-        _end.x = start.x;
-        
-        //x0,y0,z0 -> x0,y1,z0
-        super.draw(_start, _end);
-        
-        _end.x = end.x;
-        _start.y = end.y;
-        
-        //x0,y1,z0 -> x1,y1,z0
-        super.draw(_start, _end);
-        
-        _start.x = end.x;
-        _start.y = start.y;
-        
-        //x1,y0,z0 -> x1,y1,z0
-        //super.draw(_start, _end);*/
+        return this;
     }
 
 }

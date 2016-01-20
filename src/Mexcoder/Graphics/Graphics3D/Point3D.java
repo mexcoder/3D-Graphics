@@ -20,9 +20,18 @@ public class Point3D{
     }
     
     public Point3D(double x, double y, double z) {
+        this.setValues(x, y, z);
+    }
+    
+    public void setValues(double x, double y, double z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
     
+    public void fromPoint(Point3D p) {
+        this.x = p.x;
+        this.y = p.y;
+        this.z = p.z;
+    }
 }
