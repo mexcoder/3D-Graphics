@@ -5,6 +5,7 @@
  */
 package Mexcoder.Graphics.Graphics3D;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 /**
@@ -44,12 +45,7 @@ public class CubicPrism extends Entity3D {
 
     @Override
     public Entity3D drawAt(Point3D p) {
-        
-        for (Point3D point : points) {
-            System.out.println(point.x+","+point.y+","+point.z);
-            
-        }
-
+               
         super.draw(points.get(7), points.get(3));
         super.draw(points.get(7), points.get(5));
         super.draw(points.get(7), points.get(6));
@@ -59,7 +55,7 @@ public class CubicPrism extends Entity3D {
         
         super.draw(points.get(4), points.get(5));
         super.draw(points.get(4), points.get(6));
-        
+
         super.draw(points.get(1), points.get(5));
         
         super.draw(points.get(2), points.get(6));

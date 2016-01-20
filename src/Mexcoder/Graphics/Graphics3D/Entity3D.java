@@ -30,6 +30,7 @@ public abstract class Entity3D {
         this.end = new Point3D(end);
         l = new IsometricLine(target);
         points = new ArrayList<>();
+
         this.calculatePoints();
 
     }
@@ -46,17 +47,38 @@ public abstract class Entity3D {
 
     //radians
     public Entity3D rotateX(double angle) {
+        
+        double y; 
+        double z;
 
-        /**
-         * double y = this.p_origin.y; double z = this.p_origin.z;
-         * this.p_origin.y = y * Math.cos(angle) - z * Math.sin(angle);
-         * this.p_origin.z = y * Math.sin(angle) + z * Math.cos(angle);
-         *
-         * y = this.end.y; z = this.end.z; this.p_end.y = y * Math.cos(angle) -
-         * z * Math.sin(angle); this.p_end.z = y * Math.cos(angle) - z *
-         * Math.sin(angle);
-         *
-         */
+        for (Point3D point : points) {
+
+            y = point.y;
+            z = point.z;
+            point.y = y * Math.cos(angle) - z * Math.sin(angle);
+            point.z = y * Math.sin(angle) + z * Math.cos(angle);
+
+        }
+
+        return this;
+
+    }
+    
+    //radians
+    public Entity3D rotateY(double angle) {
+        
+        double x; 
+        double z;
+
+        for (Point3D point : points) {
+
+            x = point.x;
+            z = point.z;
+            point.x = x * Math.cos(angle) + z * Math.sin(angle);
+            point.z = z * Math.cos(angle) - x * Math.sin(angle);
+
+        }
+
         return this;
 
     }
@@ -64,8 +86,8 @@ public abstract class Entity3D {
     //radians
     public Entity3D rotateZ(double angle) {
 
-        double x;//= this.p_origin.x; 
-        double y;//= this.p_origin.y;
+        double x; 
+        double y;
 
         for (Point3D point : points) {
 
@@ -75,8 +97,6 @@ public abstract class Entity3D {
             point.y = x * Math.sin(angle) + y * Math.cos(angle);
 
         }
-        /*this.p_origin.x = x * Math.cos(angle) - y * Math.sin(angle);
-        this.p_origin.y = x * Math.sin(angle) + y * Math.cos(angle);*/
 
         return this;
     }
@@ -88,14 +108,6 @@ public abstract class Entity3D {
             point.y = point.y * factor;
             point.z = point.z * factor;
         }
-
-        /*this.p_origin.x = this.p_origin.x * factor;
-        this.p_origin.y = this.p_origin.y * factor;
-        this.p_origin.z = this.p_origin.z * factor;*/
-
- /*this.p_end.x = (this.p_end.x * factor) - this.p_origin.x;
-        this.p_end.y = this.p_end.y * factor - this.p_origin.y;
-        this.p_end.z = this.p_end.z * factor - this.p_origin.z;*/
         return this;
     }
 
@@ -108,14 +120,6 @@ public abstract class Entity3D {
             point.z = point.z + destination.z;
 
         }
-
-        /*this.p_origin.x = this.p_origin.x + destination.x;
-        this.p_origin.y = this.p_origin.y + destination.y;
-        this.p_origin.z = this.p_origin.z + destination.z;
-
-        this.p_end.x = this.p_end.x + destination.x;
-        this.p_end.y = this.p_end.y + destination.y;
-        this.p_end.z = this.p_end.z + destination.z;*/
         return this;
 
     }

@@ -34,9 +34,9 @@ public class Graphics_test4 extends JVentana {
     BufferedImage buffer;
     Graphics bg;
     CubicPrism c;
-    Timer t;
 
     public void init() {
+        this.setResizable(false);
         buffer = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
         bg = buffer.getGraphics();
 
@@ -44,14 +44,15 @@ public class Graphics_test4 extends JVentana {
 
         c.draw();
 
-        /*c.setColor(Color.BLUE).scale(2.0).translate(new Point3D(-200,0,0))
-         .draw();
-        
-        c.restore().setColor(Color.red).translate(new Point3D(200,0,0))//.draw();
-         .rotateZ(Math.toRadians(10)).draw();
-        //IsometricLine l = new IsometricLine(buffer);*/
+        c.setColor(Color.BLUE).scale(2.0).translate(new Point3D(-200, 0, 0))
+                .draw();
 
-        /*l.draw(new Point3D(-100, 0, 0), new Point3D(100, 0, 0),Color.RED);
+        c.restore().setColor(Color.red).translate(new Point3D(200, 0, 0))//.draw();
+                .rotateZ(Math.toRadians(30)).draw();
+
+        /*uncomment to display the axis guides
+        IsometricLine l = new IsometricLine(buffer);
+        l.draw(new Point3D(-100, 0, 0), new Point3D(100, 0, 0),Color.RED);
         l.draw(new Point3D(0, -100, 0), new Point3D(0, 100, 0),Color.GREEN);
         l.draw(new Point3D(0, 0, -100), new Point3D(0, 0, 100),Color.blue);*/
         JPanel frame = new JPanel() {
@@ -64,33 +65,17 @@ public class Graphics_test4 extends JVentana {
         };
 
         this.add(frame);
-        
+
+        this.setVisible(true);
+
         //Rectangle2D.Double rect = new Rectangle2D.Double(0, 0, width, height);
-        
-        t = new Timer(10, new ActionListener() {
-                        
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                
-                bg.fillRect(0,0,HEIGHT,WIDTH);
-                c.rotateZ(0.01);
-                c.draw();
-                frame.repaint();
-
-            }
-        });
-        //t.start();
-    }
-
-    @Override
-    protected void appExit() {
-        t.stop();
     }
 
     public Graphics_test4() {
         super("isometrico");
         this.init();
+        new animation().init();
+        new animation2().init();
     }
 
 }
