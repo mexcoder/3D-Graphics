@@ -89,7 +89,23 @@ public class CubicPrism extends Entity3D {
 
         this.getHiddenPoint();
 
-        super.draw(points.get(7), points.get(3));
+        for (Point po : conections) {
+
+            if (po.x == hpoint || po.y == hpoint) {
+                if (this.drawHidden) {
+                    l.setMask((byte) 0b00011100);
+                    super.draw(points.get(po.x),points.get(po.y));
+                    l.setMask((byte) 0xff);
+
+                }
+            }
+            else{
+                super.draw(points.get(po.x),points.get(po.y));
+            }
+
+        }
+
+        /*super.draw(points.get(7), points.get(3));
         super.draw(points.get(7), points.get(5));
         super.draw(points.get(7), points.get(6));
 
@@ -110,8 +126,7 @@ public class CubicPrism extends Entity3D {
             super.draw(points.get(0), points.get(2));
             super.draw(points.get(0), points.get(4));
             l.setMask((byte) 0xff);
-        }
-
+        }*/
         return this;
     }
 
