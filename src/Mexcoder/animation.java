@@ -89,22 +89,22 @@ public class animation extends JVentana {
                     case 'x':
                         if (dir != 0) {
                             dir = 0;
-                            c.restore();
-                            c.scale(scale);
+                            /*c.restore();
+                            c.scale(scale);*/
                         }
                         break;
                     case 'y':
                         if (dir != 1) {
                             dir = 1;
-                            c.restore();
-                            c.scale(scale);
+                            /*c.restore();
+                            c.scale(scale);*/
                         }
                         break;
                     case 'z':
                         if (dir != 2) {
                             dir = 2;
-                            c.restore();
-                            c.scale(scale);
+                            /*c.restore();
+                            c.scale(scale);*/
                         }
                         break;
                     case '+':
@@ -117,8 +117,11 @@ public class animation extends JVentana {
                             c.scale(0.8);
                         }
                         break;
+                    case 'r':
+                        c.restore();
+                        break;
                     case '?':
-                        JOptionPane.showMessageDialog(null, "use x,y,z to change the axis of rotation, + / - to change the size");
+                        JOptionPane.showMessageDialog(null, "use r to reset, x,y,z to change the axis of rotation, + / - to change the size");
                         break;
 
                 }

@@ -9,11 +9,8 @@ import Mexcoder.Graphics.Graphics3D.CubicPrism;
 import Mexcoder.Graphics.Graphics3D.Point3D;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
 /**
  *
@@ -50,7 +47,7 @@ public class Graphics_test4 extends JVentana {
         c.restore().setColor(Color.red).translate(new Point3D(200, 0, 0))//.draw();
                 .rotateZ(Math.toRadians(30)).draw();
 
-        /*uncomment to display the axis guides
+        /*//uncomment to display the axis guides
         IsometricLine l = new IsometricLine(buffer);
         l.draw(new Point3D(-100, 0, 0), new Point3D(100, 0, 0),Color.RED);
         l.draw(new Point3D(0, -100, 0), new Point3D(0, 100, 0),Color.GREEN);
@@ -76,6 +73,7 @@ public class Graphics_test4 extends JVentana {
         this.init();
         new animation().init();
         new animation2().init();
+        new proyecto().init();
     }
 
 }

@@ -6,6 +6,7 @@
 package Mexcoder.Graphics.Graphics3D;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -19,7 +20,7 @@ public abstract class Entity3D {
     IsometricLine l;
     boolean drawHidden = true;
     ArrayList<Point3D> points;
-
+    
     public abstract Entity3D drawAt(Point3D p);
 
     protected abstract Entity3D calculatePoints();

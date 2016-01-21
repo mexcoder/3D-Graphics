@@ -38,8 +38,21 @@ public class PolyLine extends Entity3D{
     @Override
     protected Entity3D calculatePoints() {
         if(original_points != null)
-            points = (ArrayList<Point3D> ) original_points.clone();
+        {
+            points = new ArrayList<>();
+            
+            for (Point3D point : original_points) {
+                points.add(new Point3D(point));
+            }
+            //points = (ArrayList<Point3D> ) original_points.clone();
+        }
         return this;
+    }
+    
+    @Override
+    public Entity3D restore(){
+        points = null;
+        return this.calculatePoints();
     }
     
     public Entity3D addPoint(Point3D p){

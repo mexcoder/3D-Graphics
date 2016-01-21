@@ -27,8 +27,9 @@ public class animation2 extends JVentana {
 
     BufferedImage buffer;
     Graphics bg;
-    PolyLine c;
+    PolyLine c,s;
     Timer t;
+    boolean show = true;
 
     // 0 = x, 1 = y; z = 3;
     int dir = 0;
@@ -47,17 +48,36 @@ public class animation2 extends JVentana {
         bg = buffer.getGraphics();
 
         c = new PolyLine(new Point3D(-300, 0, 0), buffer);
+        s = new PolyLine(new Point3D(-300, 0, 0), buffer);
+        
+        double x=0,y=0;
         
         for(int i = 1; i< 3600;i++){
             
-            double x = Math.toRadians(i)*10;//Math.sin(Math.toRadians(i)) *10;
-            double y = Math.sin(Math.toRadians(i)) *10;
-            double z = x/100;
+            x = Math.toRadians(i)*10;//Math.sin(Math.toRadians(i)) *10;
+            y = Math.sin(Math.toRadians(i)) *10;
             
-            c.addPoint(new Point3D(x-300,y,z));
+            c.addPoint(new Point3D(x-300,y,0));
+            s.addPoint(new Point3D(x-300,y,0));
         }
         
+         
+        for(int i = 3600; i> 1 ;i--){
+            
+            x = Math.toRadians(i)*10;//Math.sin(Math.toRadians(i)) *10;
+            y = Math.sin(Math.toRadians(i)) *10;
+                                   
+            s.addPoint(new Point3D(x-300,y,100));
+            if( y == -10 || y == 10 || y == 0){ // -10 < y < 10
+                s.addPoint(new Point3D(x-300,y,1));
+                s.addPoint(new Point3D(x-300,y,100));
+            }
+        }
+        
+            s.addPoint(new Point3D(x-300,y,0));
+        
         c.pack();
+        s.pack();
         
         JPanel frame = new JPanel() {
             @Override
@@ -75,7 +95,10 @@ public class animation2 extends JVentana {
 
                 bg.fillRect(0, 0, WIDTH, HEIGHT);
                 
-                c.draw();
+                if(show)
+                    c.draw();
+                else
+                    s.draw();
                 frame.repaint();
 
             }
@@ -90,25 +113,38 @@ public class animation2 extends JVentana {
                 switch (code) {
                     case 'x':
                         c.rotateX(0.01);
+                        s.rotateX(0.01);
                         break;
                     case 'y':
                         c.rotateY(0.01);
+                        s.rotateY(0.01);
                         break;
                     case 'z':
                         c.rotateZ(0.01);
+                        s.rotateZ(0.01);
                         break;
                     case '+':
                         scale +=.2;
                         c.scale(1.2);
+                        s.scale(1.2);
                         break;
                     case '-':
                         if (scale > 0.4) {
                             scale -=.2;
                             c.scale(0.8);
+                            s.scale(0.8);
                         }
                         break;
+                    case 't':
+                        show = !show;
+                        break;
+                    case 'r':
+                        c.restore();
+                        s.restore();
+                        break;
+                            
                     case '?':
-                        JOptionPane.showMessageDialog(null, "use x,y,z to change the axis of rotation, + / - to change the size");
+                        JOptionPane.showMessageDialog(null, "use r to reset, x,y,z to change the axis of rotation, + / - to change the size,t to toggle between line and sourface");
                         break;
 
                 }
